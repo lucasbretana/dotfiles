@@ -1,0 +1,11 @@
+declare -A FILELOC
+
+FILELOC[baliases]=~/.baliases
+FILELOC[bashrc]=~/.bashrc
+FILELOC[benv]=~/.benv
+FILELOC[benv.priv]=~/.benv.priv
+FILELOC[bfunctions]=~/.bfunctions
+FILELOC[gdbinit]=~/.gdbinit
+FILELOC[vimrc]=~/.vimrc
+
+export FILELOC;

@@ -1,0 +1,36 @@
+## public enviroment variables
+# define variables for colors
+export grey='\033[0;30m'
+export GREY='\033[1;30m'
+export red='\033[0;31m'
+export RED='\033[1;31m'
+export green='\033[0;32m'
+export GREEN='\033[1;32m'
+export yellow='\033[0;33m'
+export YELLOW='\033[1;33m'
+export purple='\033[0;35m'
+export PURPLE='\033[1;35m'
+export white='\033[0;37m'
+export WHITE='\033[1;37m'
+export blue='\033[0;34m'
+export BLUE='\033[1;34m'
+export cyan='\033[0;36m'
+export CYAN='\033[1;36m'
+export NC='\033[0m'
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# motivational quotes on bash start (:
+export DAILY_QUOTES=~/.daily_quotes.txt
+
+# common desktop directories
+export DESKTOP=$HOME/Desktop
+export DOWNLOADS=$HOME/Downloads
+export MUSIC=$HOME/Music
+export PICTURES=$HOME/Pictures
+export PUBLIC=$HOME/Public
+export TEMPLATES=$HOME/Templates
+export VIDEOS=$HOME/Videos
+export DOCUMENTS=$HOME/Documents
+export GAMES=$DOWNLOADS/Games

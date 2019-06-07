@@ -1,0 +1,60 @@
+##
+# overriding aliases
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+
+##
+# compiler alias]
+alias gcc='gcc -Wall -Wextra'
+alias g++='g++ -Wall -Wextra'
+alias clang='clang -Wall -Wextra'
+alias 'clang++'='clang++ -Wall -Wextra'
+alias cjava='javac -Xlint:all -Xlint:unchecked -Xdiags:verbose'
+#java 9
+alias java9='/usr/lib/jvm/java-9-openjdk-amd64/bin/java'
+alias javac9='/usr/lib/jvm/java-9-openjdk-amd64/bin/javac'
+alias jar9='/usr/lib/jvm/java-9-openjdk-amd64/bin/jar'
+##
+# fun
+alias ping='(figlet Miau 2> /dev/null || echo Miau) ; ping'
+alias getlogo='screenfetch'
+##
+# usefull commands, as aliases
+alias reloadbash='source ~/.bashrc'
+alias mv='mv -i'
+alias cp='cp -i'
+alias su='su -l'
+alias less='less -x 2'
+alias gopen='gnome-open'
+alias open='xdg-open'
+alias cls='clear ; ls -h'
+alias ll='ls -lh'
+alias la='ls -Alh'
+alias l='ls -CF'
+alias ping8='ping 8.8.8.8'
+alias pingg='ping www.google.com.br'
+alias cls='clear && ls'
+alias whereamirly='pwd -P'
+alias whereami='pwd -L'
+alias myip='hostname -I | cut -d" " -f 1'
+alias myexip='dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | xargs'
+alias goreal='cd $(whereamirly)'
+alias cd-='cd -'
+alias cd..='cd ..'
+alias enterasspace='tr "\n" " "'
+alias spaceasenter='tr " " "\n"'
+alias tls='tmux ls'
+#alias spotify-pause='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause' 
+#alias spotify-play='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause' 
+#alias spotify-stop='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop'
+#alias spotify-previous='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous'
+#alias spotify-next='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next'
