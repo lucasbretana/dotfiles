@@ -7,5 +7,6 @@ FILELOC[benv.priv]=~/.benv.priv
 FILELOC[bfunctions]=~/.bfunctions
 FILELOC[gdbinit]=~/.gdbinit
 FILELOC[vimrc]=~/.vimrc
+FILELOC[tmux.conf]=~/.tmux.conf
 
 export FILELOC;

@@ -21,9 +21,9 @@ install ()
     echo "-> $i" linked to ${FILELOC[$i]};
   done
   echo;echo;
-  echo "Any changes? (y/n)";
+  echo "All right? (y/n)";
   read -n 1 ANS;
-  if [ "$ANS" != "n" ]; then
+  if [ "$ANS" != "y" ]; then
     echo -e "\nSo, set it on file \"env\" and re-run";
     exit 0;
   fi
