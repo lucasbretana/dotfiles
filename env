@@ -1,3 +1,4 @@
+## install location
 declare -A FILELOC
 
 FILELOC[baliases]=~/.baliases
