@@ -171,4 +171,3 @@ execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
 
 " Wrap
 set linebreak
-set columns=150

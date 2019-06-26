@@ -119,8 +119,7 @@ fi
 
 # if there the daily quotes file existes, give me a quote
 if [ -f $DAILY_QUOTES ]; then
-  head -$((${RANDOM} % `wc -l < ~/.daily_quotes.txt` + 1)) ~/.daily_quotes.txt | tail -1;
-  #shuf -n1 ~/.daily_quotes.txt
+  shuf -n1 ~/.daily_quotes.txt
 fi
 
 # vi compatibilitie

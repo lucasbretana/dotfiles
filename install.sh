@@ -7,63 +7,89 @@
 #
 ##############################################################
 
+# link files to corresponding destination
+# see the env files to define the destination
+# params: files that should be installed
 install ()
 {
   if [ -f env ]; then
     source ./env;
   else
-    echo "Missing env file";
-    exit 10;
+    echoerr "Missing env file";
+    exit $ERR_ENV_MISS;
   fi;
 
   echo "Files and its location";
-  for i in $@;do
+  for i in $@; do
+    if [ -z "${FILELOC[$i]}" ]; then
+      echoerr "File \"$i\" doesn't have a proper destination";
+      exit $ERR_ENV;
+    fi
     echo "-> $i" linked to ${FILELOC[$i]};
   done
   echo;echo;
+
   echo "All right? (y/n)";
   read -n 1 ANS;
-  if [ "$ANS" != "y" ]; then
-    echo -e "\nSo, set it on file \"env\" and re-run";
-    exit 0;
-  fi
-
-  for i in $@;do
-    ln -si "$(pwd -P)"/"$i" "${FILELOC[$i]}";
-    echo "-> $i" linked to ${FILELOC[$i]};
-  done
+  case "$ANS" in
+    [yY]*)
+      for i in $@; do
+        ln -si "$(pwd -P)"/"$i" "${FILELOC[$i]}";
+        echo "-> $i" linked to ${FILELOC[$i]};
+      done
+      ;;
+    [nN]*)
+      echo -e "\nSo, set it on file \"env\" and re-run";
+      exit $OK;;
+    *)
+      echoerr "Invalid option, killing it";
+      exit $ERR_INV_OPT;;
+  esac
 }
 
+# check for files to be installed, or list them
+# params: list of files to be installed or nothing
 check ()
 {
   FILES="$@";
   if [ -z "$FILES" ];then
     echo "You did not specify the files";
-    echo "So, should I install all those in this folder? (y/n)";
+    echo "So, should I install all those in this folder and res/*? (y/n)";
     echo "ps: note that I will not do this recursively";
     read -n 1 ANS
     echo " ";
-    if [ "$ANS" = "y" ] || [ "$ANS" = "Y" ];then
-      FILES=`ls -I install.sh -I README.md -I env`;
-    else
-      echo -e "\nWell, aborting"
-      return 1;
-    fi
+
+    case "$ANS" in
+      [yY]*)
+        FILES=`ls -I install.sh -I README.md -I env -I res`;
+        FILES+=" ";
+        FILES+=`ls res/`;;
+      [nN]*)
+        echo -e "\nWell, aborting then";
+        exit $OK;;
+      *)
+        echoerr "Invalid option, killing it";
+        exit $ERR_INV_OPT;;
+    esac
   fi
 }
 
 main ()
 {
-  if [ "$1" == "help" ]; then
-    help;
-  else
-    check "$@";
-    if [ $? -eq 0 ];then
-      install "$FILES";
-    else
-      return 3;
-    fi
-  fi
+  case "$1" in
+    "help")
+      help;;
+    "--side-by-side")
+      echoerr "Not implemented yet";
+      exit $ERR_UNKOWN;;
+    *)
+      check "$@";
+      if [ $? -eq 0 ];then
+        install "$FILES";
+      else
+        return $?;
+      fi
+  esac
 }
 
 help ()
@@ -71,7 +97,28 @@ help ()
   echo -e "\nUsing \"$0 [OPTIONS]\"";
   echo -e "\n--side-by-side: try to keep the old file (if any) and add this as secondary setup";
   echo -e "\nhelp: show this message and exit";
+  echo;echo;
+  echo -e "Exit codes";
+  echo -e "OK $OK";
+  echo -e "ERR_UNKOWN $ERR_UNKOWN";
+  echo -e "ERR_ENV $ERR_ENV";
+  echo -e "ERR_ENV_MISS $ERR_ENV_MISS";
+  echo -e "ERR_INV_OPT $ERR_INV_OPT";
 }
+
+echoerr ()
+{
+  RED='\033[1;31m';
+  NC='\033[0m';
+  echo -e "$RED${@:-error}$NC" 1>&2
+}
+
+
+OK=0;
+ERR_UNKOWN=1;
+ERR_ENV=2;
+ERR_ENV_MISS=3;
+ERR_INV_OPT=4;
 
 main $@;
 exit $?;
