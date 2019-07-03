@@ -11,6 +11,7 @@ FILELOC[vimrc]=~/.vimrc
 FILELOC[tmux.conf]=~/.tmux.conf
 FILELOC[i3config]=~/.config/i3/config
 FILELOC[i3statusconfig]=~/.config/i3status/config
+FILELOC[i3blocksconfig]=~/.config/i3blocks/config
 FILELOC[daily_quotes.txt]=~/.daily_quotes.txt
 
 export FILELOC;

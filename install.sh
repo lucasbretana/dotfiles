@@ -34,6 +34,7 @@ install ()
   case "$ANS" in
     [yY]*)
       for i in $@; do
+        mkdir -p $(dirname ${FILELOC[$i]});
         ln -si "$(pwd -P)"/"$i" "${FILELOC[$i]}";
         echo "-> $i" linked to ${FILELOC[$i]};
       done
