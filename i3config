@@ -39,6 +39,13 @@ bindsym $mod+Next exec amixer set -q Master 5%-
 # volume up
 bindsym XF86AudioRaiseVolume exec amixer set -q Master 5%+ unmute
 bindsym $mod+Prior exec amixer set -q Master 5%+ unmute
+# player
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $mod+p exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym $mod+Shift+n exec playerctl next
+bindsym XF86AudioPrevious exec playerctl previous
+bindsym $mod+Shift+p exec playerctl previous
 
 # bright adjust
 bindsym XF86MonBrightnessUp exec bright_plus.sh
