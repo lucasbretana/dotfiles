@@ -5,21 +5,14 @@
 #
 # List of valid properties:
 #
-# align
-# color
-# command
-# full_text
-# instance
-# interval
-# label
-# min_width
-# name
-# separator
-# separator_block_width
-# short_text
-# signal
-# urgent
+# align # color # command # full_text # instance
+# interval # label # min_widthj # name # separator
+# separator_block_width # short_text # signal # urgent
 
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+#
 # Global properties
 #
 # The top properties below are applied to every block, but can be overridden.
@@ -27,6 +20,25 @@
 command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
+full_text=
+align=center
+color=#586e75
+separator=false
+separator_block_width=7
+markup=pango
+
+[separator]
+
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+[mediaplayer]
+label=♪
+instance=spotify
+color=#d33682
+interval=5
+signal=10
 
 # Volume indicator
 #
@@ -35,11 +47,14 @@ markup=none
 # See the script for details.
 [volume]
 label=VOL
-#label=♪
 instance=Master
 #instance=PCM
+color=#6b103c
 interval=5
 signal=10
+full_text=
+
+[separator]
 
 # Memory usage
 #
@@ -47,13 +62,17 @@ signal=10
 [memory]
 label=MEM
 separator=false
+color=#ab1313
 interval=30
 
 [memory]
 label=SWAP
 instance=swap
 separator=false
+color=#ab1313
 interval=30
+
+[separator]
 
 # Disk usage
 #
@@ -62,8 +81,11 @@ interval=30
 # (defaults to 10 for 10%).
 [disk]
 label=HOME
+color=#1c2e75
 #instance=/mnt/data
 interval=30
+
+[separator]
 
 # Network interface monitoring
 #
@@ -76,65 +98,64 @@ interval=10
 separator=false
 
 [wifi]
-#instance=wlp3s0
+label=
+instance=wlan0
 interval=10
 separator=false
+color=#00FF00
 
 [bandwidth]
 #instance=eth0
 interval=5
+color=#00FF00
 
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
+[separator]
+
 [cpu_usage]
-label=CPU
-interval=10
-min_width=CPU: 100.00%
-#separator=false
+label=
+interval=1
+min_width=CPU:100.00%
+separator=true
+color=#00ff7f
 
-#[load_average]
-#interval=10
+# Temperature
+#
+# Support multiple chips, though lm-sensors.
+[temperature]
+label=
+color=#b3521b
+interval=10
+
+[separator]
 
 # Battery indicator
 #
 # The battery instance defaults to 0.
 [battery]
-label=BAT
-#label=⚡
+#label=BAT
+label=⚡
 #instance=1
 interval=30
 
-# Date Time
-#
-[time]
-command=date '+%Y-%m-%d %H:%M:%S'
-interval=5
+[separator]
 
-# Generic media player support
-#
-# This displays "ARTIST - SONG" if a music is playing.
-# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
-#[mediaplayer]
-#instance=spotify
-#interval=5
-#signal=10
+[calng]
+full_text=<span color='#ffb0b0'></span> <span color='#268bd2'></span> <span color='#268bd2'></span>
+interval=99999
+
+[separator]
+
+[datetime]
+label=
+command=date "+%Y<span color='#586e75'>/</span>%m<span color='#586e75'>/</span>%d<span color='#586e75'>/</span> %H<span color='#586e75'>:</span>%M<span color='#586e75'>:</span>%S"
+color=#ffffff
+interval=1
 
 # OpenVPN support
 #
 # Support multiple VPN, with colors.
 #[openvpn]
 #interval=20
-
-# Temperature
-#
-# Support multiple chips, though lm-sensors.
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-#[temperature]
-#label=TEMP
-#interval=10
 
 # Key indicators
 #
