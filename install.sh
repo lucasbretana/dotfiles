@@ -21,11 +21,13 @@ install ()
 
   echo "Files and its location";
   for i in $@; do
-    if [ -z "${FILELOC[$i]}" ]; then
-      echoerr "File \"$i\" doesn't have a proper destination";
+    local _fname=$(basename $i);
+    local _floc=${FILELOC[$_fname]};
+    if [ -z "$_floc" ]; then
+      echoerr "File \"$_fname\" doesn't have a proper destination";
       exit $ERR_ENV;
     fi
-    echo "-> $i" linked to ${FILELOC[$i]};
+    echo "-> $_fname" linked to $_floc;
   done
   echo;echo;
 
@@ -34,9 +36,11 @@ install ()
   case "$ANS" in
     [yY]*)
       for i in $@; do
-        mkdir -p $(dirname ${FILELOC[$i]});
-        ln -si "$(pwd -P)"/"$i" "${FILELOC[$i]}";
-        echo "-> $i" linked to ${FILELOC[$i]};
+        local _fname=$(basename $i);
+        local _floc=${FILELOC[$_fname]};
+        mkdir -p $(dirname ${FILELOC[$_fname]});
+        ln -si "$(pwd -P)"/"$i" "$_floc";
+        echo "-> $i" linked to $_floc;
       done
       ;;
     [nN]*)
