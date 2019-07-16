@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
+# Turn off system bell if on display
+if [ -n "$DISPLAY" ]; then
+  xset b off
+fi
+
 # Setup the Monitors resulition
 hn=`eval cat /etc/hostname`;
 if [ "$hn" = "lups03" ]; then
-	xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0
-	xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0
+  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0
+  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0
 fi
 
 # Set background Wallpaper on X session
