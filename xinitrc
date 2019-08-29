@@ -20,23 +20,26 @@ if [ -n "$DISPLAY" ]; then
   xset b off
 fi
 
-# setup the Monitors resolution
-hn=$(eval cat /etc/hostname);
-if [ "$hn" = "lups03" ]; then
-  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0
-  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0
-elif [ "$hn" = "lups08" ]; then
-  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1
-  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2
-fi
-
 # loads up configuration for X resources
 [ -f ~/.Xresources ] && xrdb -load ~/.Xresources
 
+hn=$(eval cat /etc/hostname);
+wp=$HOME/Pictures/Wallpapers;
+if [ "$hn" = "lups03" ]; then
+  # monitor resolusion
+  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0 ; # dell
+  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0 ;             # lg
+elif [ "$hn" = "lups08" ]; then
+  # monitor resolusion
+  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1 ; # dell
+  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2 ;          # samsung
+#elif [ "$hn" = "MORDOR" ]; then
+fi
+
 # set background to your favorite pic
 wp=$HOME/Pictures/Wallpapers
-xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg
-#xsetbg -fullscreen ~/Pictures/Wallpapers/gandalf-minimalist.jpg
+feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg;
+#xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
