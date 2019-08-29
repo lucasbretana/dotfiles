@@ -3,7 +3,7 @@
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
+  alias ls='ls --color=auto -t --group-directories-first'
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
 
@@ -37,7 +37,7 @@ alias less='less -x 2'
 alias gopen='gnome-open'
 alias open='xdg-open'
 alias cls='clear ; ls -h'
-alias ll='ls -lh'
+alias ll='ls -lth --group-directories-first'
 alias la='ls -Alh'
 alias l='ls -CF'
 alias ping8='ping 8.8.8.8'
