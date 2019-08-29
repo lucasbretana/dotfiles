@@ -1,30 +1,31 @@
 !after editing .Xdefaults it may be reloaded with:
 !xrdb -load ~/.Xdefaults
 
-! Theme for X
-*background: #000000
-*foreground: #ffffff
-*color0:     #000000
-*color1:     #d36265
-*color2:     #aece91
-*color3:     #e7e18c
-*color4:     #7a7ab0
-*color5:     #963c59
-*color6:     #418179
-*color7:     #bebebe
-*color8:     #666666
-*color9:     #ef8171
-*color10:    #e5f779
-*color11:    #fff796
-*color12:    #4186be
-*color13:    #ef9ebe
-*color14:    #71bebe
-*color15:    #ffffff
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
 ! xterm
 XTerm*utf8Title: true
 XTerm*title: lebretana XTerm
 XTerm*VT100*geometry: 94x28
+XTerm.VT100.bellIsUrgent: true
 ! xterm theme
 XTerm*iconName: XTerm
 XTerm*background: black
