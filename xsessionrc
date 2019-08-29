@@ -2,21 +2,6 @@
 
 # ~/.xsession is loaded when a session starts
 
-# Turn off system bell if on display
-if [ -n "$DISPLAY" ]; then
-  xset b off
-fi
-
-# setup the Monitors resolution
-hn=$(eval cat /etc/hostname);
-if [ "$hn" = "lups03" ]; then
-  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0
-  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0
-elif [ "$hn" = "lups08" ]; then
-  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1
-  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2
-fi
-
-# Set background Wallpaper on X session
-#wp=$HOME/Pictures/Wallpapers
-#feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg
+# this files seem to be rub by the Display Manager
+# but my config are in the xinitrc, for raw startx enviroment
+sh ~/.xinitrc

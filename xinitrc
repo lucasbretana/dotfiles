@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 # startx will start X: invoking xinit
 # xinit will run ~/.xinitrc as a shell script
@@ -13,7 +13,22 @@
 #    other programs which call xinit like the Display Manager
 #
 # As in all Bash/sh scripts lines starting with
+
 #    '#' are comments
+# turn off system bell if on display
+if [ -n "$DISPLAY" ]; then
+  xset b off
+fi
+
+# setup the Monitors resolution
+hn=$(eval cat /etc/hostname);
+if [ "$hn" = "lups03" ]; then
+  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0
+  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0
+elif [ "$hn" = "lups08" ]; then
+  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1
+  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2
+fi
 
 # loads up configuration for X resources
 [ -f ~/.Xresources ] && xrdb -load ~/.Xresources
