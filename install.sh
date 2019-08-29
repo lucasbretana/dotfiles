@@ -57,11 +57,11 @@ install ()
 check ()
 {
   FILES="$@";
-  if [ -z "$FILES" ];then
+  if [ -z "$FILES" ]; then
     echo "You did not specify the files";
     echo "So, should I install all those in this folder and res/*? (y/n)";
     echo "ps: note that I will not do this recursively";
-    read -n 1 ANS
+    read -n 1 ANS;
     echo " ";
 
     case "$ANS" in
@@ -89,7 +89,7 @@ main ()
       exit $ERR_UNKOWN;;
     *)
       check "$@";
-      if [ $? -eq 0 ];then
+      if [ $? -eq 0 ]; then
         install "$FILES";
       else
         return $?;
