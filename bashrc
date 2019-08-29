@@ -124,3 +124,9 @@ fi
 
 # vi compatibilitie
 set -o vi
+
+# who needs a X display manager
+_tty=$(tty);
+if [[ -z "$DISPLAY" ]] && [[ "$_tty" = "/dev/tty1" ]]; then
+  exec startx;
+fi

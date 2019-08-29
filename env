@@ -19,5 +19,7 @@ FILELOC[i3blocksconfig]=~/.config/i3blocks/config
 FILELOC[daily_quotes.txt]=~/.daily_quotes.txt
 # X
 FILELOC[xsessionrc]=~/.xsessionrc
+FILELOC[xinitrc]=~/.xinitrc
+FILELOC[Xresources]=~/.Xresources
 
 export FILELOC;

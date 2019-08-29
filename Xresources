@@ -1,0 +1,72 @@
+!after editing .Xdefaults it may be reloaded with:
+!xrdb -load ~/.Xdefaults
+
+! Theme for X
+*background: #000000
+*foreground: #ffffff
+*color0:     #000000
+*color1:     #d36265
+*color2:     #aece91
+*color3:     #e7e18c
+*color4:     #7a7ab0
+*color5:     #963c59
+*color6:     #418179
+*color7:     #bebebe
+*color8:     #666666
+*color9:     #ef8171
+*color10:    #e5f779
+*color11:    #fff796
+*color12:    #4186be
+*color13:    #ef9ebe
+*color14:    #71bebe
+*color15:    #ffffff
+
+! xterm
+XTerm*utf8Title: true
+XTerm*title: lebretana XTerm
+XTerm*VT100*geometry: 94x28
+! xterm theme
+XTerm*iconName: XTerm
+XTerm*background: black
+XTerm*foreground: lightgray
+! xterm fonts
+XTerm*faceName: DejaVu Sans Mono Book
+XTerm*font: -misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1
+XTerm*faceSize: 16
+! xterm scroll
+XTerm*scrollBar: true
+XTerm*rightScrollBar: true
+XTerm*saveLines: 50000
+XTerm*jumpScroll: true
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey: true
+! xterm more global settings
+XTerm*alwaysUseMods: true
+XTerm*selectToClipboard: true
+XTerm*metaSendsEscape: true
+XTerm*loginShell: true
+
+! x-terminal-emulator
+x-terminal-emulator*utf8Title: true
+x-terminal-emulator*title: lebretana x-terminal-emulator
+x-terminal-emulator*VT100*geometry: 94x28
+! x-terminal-emulator theme
+x-terminal-emulator*iconName: x-terminal-emulator
+x-terminal-emulator*background: black
+x-terminal-emulator*foreground: lightgray
+! x-terminal-emulator fonts
+x-terminal-emulator*faceName: DejaVu Sans Mono Book
+x-terminal-emulator*font: -misc-fixed-medium-r-normal--20-200-75-75-c-100-iso8859-1
+x-terminal-emulator*faceSize: 16
+! x-terminal-emulator scroll
+x-terminal-emulator*scrollBar: true
+x-terminal-emulator*rightScrollBar: true
+x-terminal-emulator*saveLines: 50000
+x-terminal-emulator*jumpScroll: true
+x-terminal-emulator*scrollTtyOutput: false
+x-terminal-emulator*scrollKey: true
+! x-terminal-emulator more global settings
+x-terminal-emulator*alwaysUseMods: true
+x-terminal-emulator*selectToClipboard: true
+x-terminal-emulator*metaSendsEscape: true
+x-terminal-emulator*loginShell: true
