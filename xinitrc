@@ -17,11 +17,16 @@
 #    '#' are comments
 # turn off system bell if on display
 if [ -n "$DISPLAY" ]; then
-  xset b off
+  xset b off;
 fi
 
+# important variables for xinitrc
+[ -z "$DBUS_SESSION_BUS_ADDRESS" ] || export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus;
+[ -z "$XAUTHORITY" ] || export XAUTHORITY=/home/lebretana/.Xauthority;
+[ -z "$DISPLAY" ] || export DISPLAY=:1;
+
 # loads up configuration for X resources
-[ -f ~/.Xresources ] && xrdb -load ~/.Xresources
+[ -f ~/.Xresources ] && xrdb -load ~/.Xresources;
 
 hn=$(eval cat /etc/hostname);
 wp=$HOME/Pictures/Wallpapers;
@@ -39,10 +44,10 @@ fi
 # set background to your favorite pic
 wp=$HOME/Pictures/Wallpapers
 feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg;
-#xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg
+#xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg;
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
 
 # run a display manager
-exec x-window-manager
+exec x-window-manager;

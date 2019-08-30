@@ -1,11 +1,11 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.  # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) # for examples
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth;
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100
-HISTFILESIZE=500
+HISTSIZE=100;
+HISTFILESIZE=500;
 
 # public variables definitions.
 # you may want to put your private additions into a separate file like
@@ -48,25 +48,25 @@ case $- in
 esac
 
 # extend pattern match in BASH
-shopt -s extglob
+shopt -s extglob;
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+shopt -s histappend;
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+shopt -s checkwinsize;
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-shopt -s globstar
+shopt -s globstar;
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)";
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot);
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -85,22 +85,22 @@ if [ -n "$force_color_prompt" ]; then
     # a case would tend to support setf rather than setaf.)
     color_prompt=yes
   else
-    color_prompt=
+    color_prompt=;
   fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-  DEFAULT_PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ '
-  PS1='\n${debian_chroot:+($debian_chroot)}[$(defuser) at $(defhost)]:$(deflocal)\n\$ _> '
+  #DEFAULT_PS1="${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ ";
+  PS1='\n${debian_chroot:+($debian_chroot)}[$(defuser) at $(defhost)]:$(deflocal)\n\$ _> ';
 else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ ';
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1";
   ;;
 *)
   ;;
@@ -111,19 +111,19 @@ esac
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
+    . /usr/share/bash-completion/bash_completion;
   elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    . /etc/bash_completion;
   fi
 fi
 
 # if there the daily quotes file existes, give me a quote
-if [ -f $DAILY_QUOTES ]; then
-  shuf -n1 ~/.daily_quotes.txt
+if [ -f "$DAILY_QUOTES" ]; then
+  shuf -n1 ~/.daily_quotes.txt;
 fi
 
 # vi compatibilitie
-set -o vi
+set -o vi;
 
 # who needs a X display manager
 _tty=$(tty);
