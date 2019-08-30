@@ -72,13 +72,13 @@ deflocal ()
 # parameters: 2 - any extra info to print with the branch (optional)
 getbranch ()
 {
-  local _atomColors=${1:-"no"};
+  local _color=${1:-"no"};
   local _extra="$2";
-  local _ref=`git branch --list 2> /dev/null | grep "*" | cut -d " " -f 2`;
+  local _ref=$(git branch --list 2> /dev/null | grep "*" | cut -d " " -f 2);
   if [ ${#_ref} != 0 ]; then
-    if [ "$_atomColors" = "yes" ];then
-      if [ -r "$HOME/.atom/styles.less" ];then
-        echo `get_color_from_file $HOME/.atom/styles.less 2> /dev/null "$_ref" "$_extra"`;
+    if [ "$_color" = "yes" ];then
+      if [ ! -z "${BRANCHCOLOR[$_ref]}" ]; then
+        echo -e "${BRANCHCOLOR[$_ref]}""$_ref""$_extra""$NC";
       else
         echo "$_ref";
       fi
@@ -88,60 +88,6 @@ getbranch ()
   else
     echo "";
   fi
-}
-
-# man: defines the color for the branch as the same color used on Atom the extension tree-view-git-status
-# parameters: 1 - is the file path + name with the colors (mandatory)
-# parameters: 2 - is the branch name (mandatory)
-# paramaters: 3 - extra stuff to print (optional)
-get_color_from_file ()
-{
-    local _colorsFromFile="";
-    local _branchesFromFile="";
-    local _colorLine="";
-    local _filename="${1:?get_color_from_file: missing file $(return 1)}";
-    local _p_branch="${2:?get_color_from_file: missing branch name $(return 2)}";
-    local _p_extra="$3";
-
-    while read -r l; do
-        line="$l";
-        if [ ${#_colorLine} != 0 ]; then
-            new_color=`echo "$line" | sed "s/color: //" | tr -d ";"`;
-            local _colorsFromFile="${_colorsFromFile} $new_color";
-            local _colorLine="";
-        fi;
-        if [[ "$line" = ".tree-view-git-status.git-branch-"* ]]; then
-            new_branch=`echo "$line" | sed "s/.tree-view-git-status.git-branch-//" | cut -d " " -f 1`;
-            _branchesFromFile="$_branchesFromFile $new_branch";
-            _colorLine="yes";
-        fi;
-    done < "$_filename";
-    if [ ${#_colorsFromFile} != 0 ]; then
-        # echo -e "$BLUE $BRANCHES_FROM_FILE $NC" > /tmp/BRANCHES;
-        # echo -e "$BLUE $COLORS_FROM_FILE $NC" > /tmp/COLORS;
-        i=1;
-        color="";
-        for branch in ${_branchesFromFile};
-        do
-            if [ "$branch" = "$_p_branch" ]; then
-                color=`echo "$_colorsFromFile" | xargs | cut -d " " -f $i`;
-                # echo -e "$BLUE yes $NC pls print branch $branch on color $color and number $i" > /tmp/DEBUG;
-                break;
-            # else
-                # echo -e "colors -$COLORS_FROM_FILE - $RED not $NC pls print branch $branch on color $color and number $i" > /tmp/DEBUG_NOT;
-            fi;
-            ((i++));
-        done;
-        if [ ${#color} != 0 ]; then
-            var=`echo $color`;
-            # echo "@@$BRANCH_WITH_EXTRA@@" > /tmp/BRANCH_WITH_EXTRA
-            echo -e "${!var}""$_p_branch""$_p_extra""$NC";
-        else
-            echo -e "${DEFAULT_COLOR}""$_p_branch""$_p_extra""$NC";
-        fi;
-    else
-        echo -e "$DEFAULT_COLOR""$_p_branch""$_p_extra""$NC";
-    fi
 }
 
 # man: prints one (or more) symbol(s) that represent the stage of a git repositorie in relation to server
