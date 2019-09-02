@@ -21,9 +21,9 @@ if [ -n "$DISPLAY" ]; then
 fi
 
 # important variables for xinitrc
-[ -z "$DBUS_SESSION_BUS_ADDRESS" ] || export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus;
-[ -z "$XAUTHORITY" ] || export XAUTHORITY=/home/lebretana/.Xauthority;
-[ -z "$DISPLAY" ] || export DISPLAY=:1;
+[ -z "$DBUS_SESSION_BUS_ADDRESS" ] && export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus;
+[ -z "$XAUTHORITY" ] && export XAUTHORITY=/home/$USER/.Xauthority;
+[ -z "$DISPLAY" ] && export DISPLAY=:1;
 
 # loads up configuration for X resources
 [ -f ~/.Xresources ] && xrdb -load ~/.Xresources;
