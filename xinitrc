@@ -29,32 +29,24 @@ _log ()
 
 _log "starting..";
 #############################
-# deamons and background jobs
-_log "deamons n' background jobs";
+# daemons and background jobs
+_log "daemons n' background jobs";
 #####
 # set up session stuff
 [ -f ~/.xsessionrc ] && sh ~/.xsessionrc;
 
 # dbus for communication
-#/usr/bin/dbus-launch &
+### test for an existing busd daemon, just to be safe
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  # if not found, launch a new one
+  eval `dbus-launch --sh-syntax`;
+  _log "D-Bus per-session daemon address  is: $DBUS_SESSION_BUS_ADDRESS";
+fi
+
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
 #############################
-
-# important variables for xinitrc
-if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
-  _log "(WW) needed to set the DBUS_SESSION_BUS_ADDRESS variable";
-  export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus;
-fi
-if [ -z "$XAUTHORITY" ]; then
-  _log "(WW) needed to set the XAUTHORITY variable";
-  export XAUTHORITY=/home/$USER/.Xauthority;
-fi
-if [ -z "$DISPLAY" ]; then
-  _log "(WW) needed to set the DISPLAY variable";
-  export DISPLAY=:0;
-fi
 
 _log "starting x-window-manager..";
 # run window manager or a display manager
