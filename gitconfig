@@ -1,0 +1,54 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Lucas Eduardo Bretana
+	email = lebretana@inf.ufpel.edu.br
+[core]
+	fileMode = false
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	ui = true
+[alias]
+	status = st
+	commit = cm
+	fetch = fe
+	reset = rs
+	checkout = ch
+	st = status
+	cm = commit
+	fe = fetch
+	fs = reset
+	ch = checkout
+	ck = checkout
+	br = branch
+[alias]
+	amend = !"git commit --amend -C HEAD"
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	sm = log --summary
+	
+	# hard reset
+	rshard = reset --hard HEAD
+
+	# undo last commit keeping files in stage
+	undolast = reset --soft HEAD^
+
+	untracked = ls-files . --exclude-standard --others
+	ignored = ls-files . --ignored --exclude-standard --others
+
+	# unstage file
+	unstage = reset HEAD
+
+	# unstage and remove local changes 
+	discard = checkout HEAD
+
+	# show git aliases
+	aliases = config --get-regexp alias
+
+	# list contributor stats for this repo
+	contributors = !git shortlog -n -s --no-merges $@ | cat - && echo && echo total $(git rev-list --count HEAD)
+
+	 # decorated graph view of one liner summarized commits from all branches. (inspired by git-extras)
+	tree = log --all --graph --decorate --oneline --simplify-by-decoration

@@ -21,5 +21,7 @@ FILELOC[daily_quotes.txt]=~/.daily_quotes.txt
 FILELOC[xsessionrc]=~/.xsessionrc
 FILELOC[xinitrc]=~/.xinitrc
 FILELOC[Xresources]=~/.Xresources
+# git
+FILELOC[gitconfig]=~/.gitconfig
 
 export FILELOC;
