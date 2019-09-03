@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/sh
 
 # startx will start X: invoking xinit
 # xinit will run ~/.xinitrc as a shell script
@@ -14,40 +14,50 @@
 #
 # As in all Bash/sh scripts lines starting with
 
-#    '#' are comments
-# turn off system bell if on display
-if [ -n "$DISPLAY" ]; then
-  xset b off;
-fi
+##########
+# config
+###
+LOGFILE=~/.xsession-errors;
+##########
 
-# important variables for xinitrc
-[ -z "$DBUS_SESSION_BUS_ADDRESS" ] && export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus;
-[ -z "$XAUTHORITY" ] && export XAUTHORITY=/home/$USER/.Xauthority;
-[ -z "$DISPLAY" ] && export DISPLAY=:1;
+# log stuff
+_log ()
+{
+  _dt=$(date "+%m.%d %H:%M.%S");
+  echo "[${_dt}] (xinitrc) ..> $*" >> "$LOGFILE";
+}
 
-# loads up configuration for X resources
-[ -f ~/.Xresources ] && xrdb -load ~/.Xresources;
+_log "starting..";
+#############################
+# deamons and background jobs
+_log "deamons n' background jobs";
+#####
+# set up session stuff
+[ -f ~/.xsessionrc ] && sh ~/.xsessionrc;
 
-hn=$(eval cat /etc/hostname);
-wp=$HOME/Pictures/Wallpapers;
-if [ "$hn" = "lups03" ]; then
-  # monitor resolusion
-  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0 ; # dell
-  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0 ;             # lg
-elif [ "$hn" = "lups08" ]; then
-  # monitor resolusion
-  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1 ; # dell
-  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2 ;          # samsung
-#elif [ "$hn" = "MORDOR" ]; then
-fi
-
-# set background to your favorite pic
-wp=$HOME/Pictures/Wallpapers
-feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg;
-#xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg;
+# dbus for communication
+#/usr/bin/dbus-launch &
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
+#############################
 
-# run a display manager
+# important variables for xinitrc
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  _log "(WW) needed to set the DBUS_SESSION_BUS_ADDRESS variable";
+  export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus;
+fi
+if [ -z "$XAUTHORITY" ]; then
+  _log "(WW) needed to set the XAUTHORITY variable";
+  export XAUTHORITY=/home/$USER/.Xauthority;
+fi
+if [ -z "$DISPLAY" ]; then
+  _log "(WW) needed to set the DISPLAY variable";
+  export DISPLAY=:0;
+fi
+
+_log "starting x-window-manager..";
+# run window manager or a display manager
 exec x-window-manager;
+
+_log "..finishing";
