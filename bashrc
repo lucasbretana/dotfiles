@@ -4,8 +4,7 @@
 HISTCONTROL=ignoreboth;
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100;
-HISTFILESIZE=500;
+HISTSIZE=-1;
 
 # public variables definitions.
 # you may want to put your private additions into a separate file like
