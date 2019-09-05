@@ -45,7 +45,7 @@ echoerr ()
 # TODO: remove atom stuff, I still like the color but don't use atom a long time...
 DEFAULT_COLOR=$CYAN;
 default_color=$cyan;
-atom_colors_compability="yes";
+use_branch_color="yes";
 deflocal ()
 {
   # BRANCH=$(git branch -vv 2> /dev/null | grep "*" | cut -d " " -f 2);
@@ -57,7 +57,7 @@ deflocal ()
     local _fullDir=${_repo}${_subdir};
     local _extra=$(getgitsymbol "${_branch}" 2> /dev/null);
     [ -n "${_extra}" ] && _extra=" ${_extra}";
-    local _branchWithColor=$(getbranch "$atom_colors_compability");
+    local _branchWithColor=$(getbranch "$use_branch_color");
     echo -e '['"$default_color""${_fullDir}""$NC"'] ['"$_branchWithColor""$default_color""$_extra""$NC"']';
   else
     PWD=$(pwd | sed "s|^$HOME|~|");

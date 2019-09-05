@@ -162,12 +162,6 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 " Color
 " Is is all about using less lines, amirite?
 execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
-"set background=dark
-"if strftime("%H") < 13
-"  colorscheme desert
-"else
-"  colorscheme desert
-"endif
 
 " Wrap
 set linebreak
