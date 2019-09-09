@@ -9,15 +9,15 @@ __promp_command ()
   # ine 2
   PS1+="\n  \\-- $(def_date_wcolor) $(pretty_battery)";
   # line 3
-  PS1+="${blue}";
-  PS1+="\n$ _";
+  PS1+="\[${blue}\]";
+  PS1+="\[\n\]$\[ \]_";
   if [ ${_ret} != 0 ]; then
-    PS1+="${red}";
+    PS1+="\[${red}\]";
   else
-    PS1+="${blue}";
+    PS1+="\[${blue}\]";
   fi
   PS1+="> ";
-  PS1+=${NC};
+  PS1+="\[${NC}\]";
 }
 
 def_user_wcolor ()
