@@ -1,93 +1,106 @@
-##
-# overriding functions
-#
-# mman: improves the man
-# searches for a more specific manual on $MYMANUAL first
-# for ambigous manual pages preced the <command> with an = (equal sign)
-mman ()
-{
-  _target=$1;
-  if [[ $1 == "="* ]];
-  then
-    _target=$(echo "$1" | tr -d "=");
-  fi
-  /usr/bin/man "$MYMANUAL"/"$_target" 2> /dev/null || ] /usr/bin/less -x 2 "$MYHELP"/man_"$_target".txt 2> /dev/null || /usr/bin/man "$_target" 2> /dev/null || cowsay "No trace of manual page" 2> /dev/null || echoerr "No trace of manual page";
-}
+#!/usr/bin/env bash
 
-# man: change the cat to refuse to work without treats
-# TODO: tac
-tac ()
+__promp_command ()
 {
-    if [ "$1" != "+treats" ]; then
-        echoerr "meow" && return 1;
-    else
-        for i in "$@";
-        do
-            if [ "$i" != "+treats" ]; then
-                /usr/bin/tac "$i";
-            fi;
-        done;
-    fi
-}
-
-# section: usefull functions
-#
-# man: prints an error message in red on the err stream
-# parameters: takes the string to be displayed (default is "error") (optinal)
-echoerr ()
-{
-  echo -e "$RED${@:-error}$NC" 1>&2;
-}
-
-# man: prints the current location in the format used by the PS1 variable
-# man: if is inside a git repo then prints with different color and prints the branch
-# man: if is inside a regular folder then prints it beaty only
-# TODO: remove atom stuff, I still like the color but don't use atom a long time...
-DEFAULT_COLOR=$CYAN;
-default_color=$cyan;
-use_branch_color="yes";
-deflocal ()
-{
-  # BRANCH=$(git branch -vv 2> /dev/null | grep "*" | cut -d " " -f 2);
-  local _branch=$(getbranch no);
-  if [ ${#_branch} != 0 ]; then
-    local _repo=$(basename $(git rev-parse --show-toplevel));
-    local _local=$(pwd -L);
-    local _subdir=$(echo ${_local##*${_repo}});
-    local _fullDir=${_repo}${_subdir};
-    local _extra=$(getgitsymbol "${_branch}" 2> /dev/null);
-    [ -n "${_extra}" ] && _extra=" ${_extra}";
-    local _branchWithColor=$(getbranch "$use_branch_color");
-    echo -e '['"$default_color""${_fullDir}""$NC"'] ['"$_branchWithColor""$default_color""$_extra""$NC"']';
+  local _ret=$?;
+  PS1="";
+  # line 1
+  PS1+="\n[$(def_user_wcolor) at $(def_host_wcolor)]:[$(def_local_wcolor)]$(def_branch_wcolor)";
+  # ine 2
+  PS1+="\n  \\-- $(def_date_wcolor) $(pretty_battery)";
+  # line 3
+  PS1+="${blue}";
+  PS1+="\n$ _";
+  if [ ${_ret} != 0 ]; then
+    PS1+="${red}";
   else
-    PWD=$(pwd | sed "s|^$HOME|~|");
-    echo -e '['"$DEFAULT_COLOR""$PWD""$NC"']';
+    PS1+="${blue}";
   fi
+  PS1+="> ";
+  PS1+=${NC};
 }
 
-# man: if is inside a git repositorie then this will return the branch name
-# man: if inside a non-branches then this will return nothing
-# NOTE: you CANNOT use the * as unstaged_symbol, use + perhaps
-# parameters: 1 - must be a flag that indicates to print using atom colors or not (default no)
-# parameters: 2 - any extra info to print with the branch (optional)
-getbranch ()
+def_user_wcolor ()
 {
-  local _color=${1:-"no"};
-  local _extra="$2";
-  local _ref=$(git branch --list 2> /dev/null | grep "*" | cut -d " " -f 2);
-  if [ ${#_ref} != 0 ]; then
-    if [ "$_color" = "yes" ];then
-      if [ ! -z "${BRANCHCOLOR[$_ref]}" ]; then
-        echo -e "${BRANCHCOLOR[$_ref]}""$_ref""$_extra""$NC";
-      else
-        echo "$_ref";
-      fi
-    else
-      echo "$_ref";
-    fi
+  local _usercolor=${USERNAMECOLOR[${USER}]}
+  _usercolor=${_usercolor:=$USRDEFCLR};
+  echo -e "${_usercolor}${USER}${NC}";
+}
+
+def_host_wcolor ()
+{
+  local _hn=$(hostname);
+  local _hostcolor=${HOSTNAMECOLOR[${_hn}]}
+  _hostcolor=${_hostcolor:=$HSTDEFCLR};
+  echo -e "${_hostcolor}${_hn}${NC}";
+}
+
+def_local_wcolor ()
+{
+  local _pwd="";
+  git status &> /dev/null;
+  if [ $? == 0 ]; then
+    # NEW IMPLEMENTATION
+    #local _fullpwd=$(git rev-parse --show-toplevel);
+    #local _basepwd=$(basename ${_fullpwd})
+    #local _outpwd=$(pwd -L);
+    #local _subdir=$(echo ${_local##*${_repo}});
+    #local _reppwd=$(echo ${_fullpwd##*${_outpwd}});
+
+    local _basepwd=$(basename $(git rev-parse --show-toplevel));
+    local _outpwd=$(pwd -L);
+    local _subpwd=$(echo ${_outpwd##*${_basepwd}});
+    local _fullpwd=${_basepwd}${_subpwd};
+
+    _pwd+=${GITDEFCLR};
+    _pwd+=${_fullpwd};
+    [ -n "${_extra}" ] && _pwd=" ${_extra}";
+    _pwd+=${NC};
   else
+    _pwd+=${DIRDEFCLR};
+    _pwd+=$(pwd | sed "s|$HOME|~|");
+    _pwd+=${NC};
+  fi
+
+  echo -e "${_pwd}";
+}
+
+def_date_wcolor ()
+{
+  local _date="";
+  _date+=${DATDEFCLR};
+  _date+=$(date "+%m.%d");
+  _date+=${NC};
+
+  local _hour="";
+  _hour+=${HOUDEFCLR};
+  _hour+=$(date "+%H:%M:%S");
+  _hour+=${NC};
+  echo -e "${_date} ${_hour}";
+}
+
+def_branch_wcolor ()
+{
+  git status &> /dev/null;
+  if [ $? != 0 ]; then 
     echo "";
+    return;
   fi
+
+  local _branch="";
+  _branch+=${BRADEFCLR};
+  _branch+="(";
+  local _bname=$(git branch --list 2> /dev/null | grep "*" | cut -d " " -f 2);
+  if [ $? != 0 ]; then
+    _bname="nobranch";
+  fi
+  _branch+=${_bname};
+  local _extra=$(getgitsymbol "${_bname}" 2> /dev/null);
+  [ -n "${_extra}" ] && _branch+=" "${_extra};
+  _branch+=")";
+  _branch+=${NC};
+
+  echo -e "${_branch}";
 }
 
 # man: prints one (or more) symbol(s) that represent the stage of a git repositorie in relation to server
@@ -155,30 +168,42 @@ behind ()
   fi
 }
 
-# man: defines the host name with a color, used on PS1
-defhost ()
+# mman: improves the man
+# searches for a more specific manual on $MYMANUAL first
+# for ambigous manual pages preced the <command> with an = (equal sign)
+mman ()
 {
-  local _hn=$(hostname);
-  local _color=${HOSTNAMECOLOR[$_hn]}
-  _color=${_color:=$WHITE}
-  echo -e "$_color""$_hn""$NC";
+  _target=$1;
+  if [[ $1 == "="* ]];
+  then
+    _target=$(echo "$1" | tr -d "=");
+  fi
+  /usr/bin/man "$MYMANUAL"/"$_target" 2> /dev/null || ] /usr/bin/less -x 2 "$MYHELP"/man_"$_target".txt 2> /dev/null || /usr/bin/man "$_target" 2> /dev/null || cowsay "No trace of manual page" 2> /dev/null || echoerr "No trace of manual page";
 }
 
-# man: defines the user name with a color, used on PS1
-defuser ()
+# man: change the cat to refuse to work without treats
+# TODO: tac
+tac ()
 {
-  #if ([ "$(whoami)"  = "lebretana" ] || [ "$(whoami)"  = "lucasbretana" ] || [ "$(whoami)"  = "lucas" ]) ; then
-  #  echo -e "$green""$(whoami)""$NC";
-  #elif [[ "$(whoami)"  = "root"* ]]; then
-  #  echo -e "$red""$(whoami)""$NC";
-  #else
-  #  echo -e "$cyan""$(whoami)""$NC";
-  #fi
-  local _me=$(whoami);
-  local _color=${USERNAMECOLOR[$_me]};
-  _color=${_color:=$cyan};
-  echo -e "$_color""$_me""$NC";
+    if [ "$1" != "+treats" ]; then
+        echoerr "meow" && return 1;
+    else
+        for i in "$@";
+        do
+            if [ "$i" != "+treats" ]; then
+                /usr/bin/tac "$i";
+            fi;
+        done;
+    fi
+}
 
+# section: usefull functions
+#
+# man: prints an error message in red on the err stream
+# parameters: takes the string to be displayed (default is "error") (optinal)
+echoerr ()
+{
+  echo -e "$RED${@:-error}$NC" 1>&2;
 }
 
 # man: prints the colors know by shell
@@ -405,4 +430,32 @@ pcolors ()
   echo -e "$white""white""$NC""\t$WHITE""WHITE""$NC";
   echo -e "$blue""blue""$NC""\t$BLUE""BLUE""$NC";
   echo -e "$cyan""cyan""$NC""\t$CYAN""CYAN""$NC";
+}
+
+# man: a function to display battery status
+pretty_battery ()
+{
+  local _hasbat=$(acpi -b 2>&1 | grep -i "no support");
+  [ -n "$_hasbat" ] && return;
+
+  local _batinfo=$(acpi -b);
+  local _pc=$(echo "${_batinfo}" | cut -d "," -f 2 | sed "s/ //g" | tr -d "%");
+  local _ch=$(echo "${_batinfo}" | grep -i 'discharging');
+
+  local _batdisplay="";
+  if [ $_pc -lt 20 ]; then
+    _batdisplay+="${RED}";
+  else
+    _batdisplay+="${green}";
+  fi
+
+  _batdisplay+="bat:";
+  _batdisplay+="${_pc}%${NC}";
+  if [ -n "${_ch}" ]; then
+    _batdisplay+="${red}-${NC}";
+  else
+    _batdisplay+="${green}+${NC}";
+  fi;
+
+  echo -e "${_batdisplay}"
 }

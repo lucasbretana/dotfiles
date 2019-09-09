@@ -17,6 +17,16 @@ export BLUE='\033[1;34m'
 export cyan='\033[0;36m'
 export CYAN='\033[1;36m'
 export NC='\033[0m'
+# PS1 default colors
+export USRDEFCLR=$green;
+export HSTDEFCLR=$GREEN;
+
+export GITDEFCLR=$cyan;
+export BRADEFCLR=$white;
+export DIRDEFCLR=$CYAN;
+
+export DATDEFCLR=$white;
+export HOUDEFCLR=$WHITE;
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

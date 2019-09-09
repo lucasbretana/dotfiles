@@ -89,8 +89,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-  #DEFAULT_PS1="${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ ";
-  PS1='\n${debian_chroot:+($debian_chroot)}[$(defuser) at $(defhost)]:$(deflocal)\n\$ _> ';
+  PROMPT_COMMAND=__promp_command; # function to generate PS1 ;)
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ ';
 fi
