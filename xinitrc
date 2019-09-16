@@ -43,6 +43,8 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
   _log "D-Bus per-session daemon address  is: $DBUS_SESSION_BUS_ADDRESS";
 fi
 
+# dropboxd
+dropbox start -i 2> /dev/null &
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
