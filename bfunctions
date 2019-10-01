@@ -435,7 +435,7 @@ pcolors ()
 # man: a function to display battery status
 pretty_battery ()
 {
-  acpi 2> /dev/null;
+  acpi &> /dev/null;
   [ $? != 0 ] && return;
   local _hasbat=$(acpi -b 2>&1 | grep -i "no support");
   [ -n "$_hasbat" ] && return;
