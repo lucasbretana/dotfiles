@@ -1,0 +1,11 @@
+## vim files
+*.swp
+tags
+
+## default ingored files
+*.ignore
+*.old
+*.bkp
+
+## mac OS file
+.DS_Store

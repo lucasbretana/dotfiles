@@ -5,6 +5,7 @@
 	email = lebretana@inf.ufpel.edu.br
 [core]
 	fileMode = false
+	excludesfile = ~/.gitignore
 [color]
 	status = auto
 	diff = auto

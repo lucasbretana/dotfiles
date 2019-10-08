@@ -23,5 +23,6 @@ FILELOC[xinitrc]=~/.xinitrc
 FILELOC[Xresources]=~/.Xresources
 # git
 FILELOC[gitconfig]=~/.gitconfig
+FILELOC[gitignore]=~/.gitignore
 
 export FILELOC;
