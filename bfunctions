@@ -29,7 +29,7 @@ def_user_wcolor ()
 
 def_host_wcolor ()
 {
-  local _hn=$(hostname);
+  local _hn=$(hostname -s);
   local _hostcolor=${HOSTNAMECOLOR[${_hn}]}
   _hostcolor=${_hostcolor:=$HSTDEFCLR};
   echo -e "${_hostcolor}${_hn}${NC}";
