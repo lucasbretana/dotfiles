@@ -4,7 +4,7 @@ set nocompatible
 filetype off " mandatory for vundle..
 " Vundle, plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/vim/vundle-pluging')
+call vundle#begin('~/.vim/vundle-pluging')
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -12,8 +12,9 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 " :h vundle         - for more details or wiki for FAQ
 
-Plugin 'wakatime/vim-wakatime' " wakatime integration
-Plugin 'tpope/vim-fugitive' " vim integration with git
+Plugin 'wakatime/vim-wakatime'  " wakatime integration
+Plugin 'tpope/vim-fugitive'     " vim integration with git
+Plugin 'jacoborus/tender.vim'   " tender theme for vim
 
 call vundle#end()            " required
 
@@ -143,8 +144,14 @@ set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Color
-" Is is all about using less lines, amirite?
-execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+  set termguicolors
+  execute 'colorscheme tender'
+else
+  " Is is all about using less lines, amirite?
+  execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
+endif
 
 " Wrap
 set linebreak
