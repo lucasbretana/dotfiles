@@ -61,14 +61,20 @@ check ()
     echo "You did not specify the files";
     echo "So, should I install all those in this folder and res/*? (y/n)";
     echo "ps: note that I will not do this recursively";
+    echo "ps: note that I will not list files that end in `private`";
     read -n 1 ANS;
     echo " ";
 
     case "$ANS" in
       [yY]*)
-        FILES=`ls -I install.sh -I README.md -I env -I res`;
-        FILES+=" ";
-        FILES+=`ls res/`;;
+	FILES=$(ls -I install.sh -I README.md -I env -I res -I *private -I bin);
+	for _file in $(ls res/); do
+	  FILES+=" res/$_file";
+	done
+	for _file in $(ls bin/); do
+	  FILES+=" bin/$_file";
+	done
+	;;
       [nN]*)
         echo -e "\nWell, aborting then";
         exit $OK;;
@@ -77,6 +83,8 @@ check ()
         exit $ERR_INV_OPT;;
     esac
   fi
+
+  _list $FILES
 }
 
 main ()

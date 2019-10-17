@@ -24,5 +24,7 @@ FILELOC[Xresources]=~/.Xresources
 # git
 FILELOC[gitconfig]=~/.gitconfig
 FILELOC[gitignore]=~/.gitignore
+# bin files and scripts
+FILELOC[bin]=~/.bin
 
 export FILELOC;

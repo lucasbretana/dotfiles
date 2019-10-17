@@ -6,6 +6,11 @@ HISTCONTROL=ignoreboth;
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=-1;
 
+# added personal bin scripts
+if [ -d ~/.bin ]; then
+  PATH=$HOME/.bin:$PATH;
+fi
+
 # public variables definitions.
 # you may want to put your private additions into a separate file like
 if [ -f ~/.benv ]; then
@@ -31,14 +36,6 @@ fi
 if [ -f ~/.bfunctions ]; then
     . ~/.bfunctions;
 fi
-
-## TODO remove
-## Private alias definitions.
-## You may want to put your private additions into a separate file like
-## ~/.baliases, instead of adding them here directly.
-#if [ -f ~/.baliases.priv ]; then
-#    . ~/.baliases.priv;
-#fi
 
 # If not running interactively, don't do anything
 case $- in
