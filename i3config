@@ -49,6 +49,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym $mod+Shift+n exec playerctl next
 bindsym XF86AudioPrevious exec playerctl previous
 bindsym $mod+Shift+p exec playerctl previous
+# launch menu
+bindsym XF86LaunchA exec i3-dmenu-desktop
 
 # bright adjust
 bindsym XF86MonBrightnessUp exec bright_plus.sh
