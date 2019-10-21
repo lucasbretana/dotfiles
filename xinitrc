@@ -27,6 +27,13 @@ _log ()
   echo "[${_dt}] (xinitrc) ..> $*" >> "$LOGFILE";
 }
 
+_log "getting rid of old logs.." 
+if [ -f $LOGFILE ]; then
+  mv -f $LOGFILE $LOGFILE.old
+fi
+
+_log "done." 
+
 _log "starting..";
 #############################
 # daemons and background jobs
@@ -39,12 +46,12 @@ _log "daemons n' background jobs";
 ### test for an existing busd daemon, just to be safe
 if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
   # if not found, launch a new one
-  eval `dbus-launch --sh-syntax`;
-  _log "D-Bus per-session daemon address  is: $DBUS_SESSION_BUS_ADDRESS";
+  eval `dbus-launch --sh-syntax` 2>> $LOGFILE;
+  _log "D-Bus per-session daemon address  is: \`$DBUS_SESSION_BUS_ADDRESS\`";
 fi
 
 # dropboxd
-dropbox start -i 2> /dev/null &
+dropbox start -i 2>> /dev/null &
 
 # start a XTerm
 /usr/bin/X11/x-terminal-emulator &
@@ -52,6 +59,6 @@ dropbox start -i 2> /dev/null &
 
 _log "starting x-window-manager..";
 # run window manager or a display manager
-exec x-window-manager;
+exec x-window-manager 2>> $LOGFILE;
 
 _log "..finishing";

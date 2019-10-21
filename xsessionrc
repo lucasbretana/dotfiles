@@ -17,36 +17,36 @@ _log ()
   _dt=$(date "+%m.%d %H:%M:%S");
   echo "[${_dt}] (xsessionrc) ..> $*" >> "$LOGFILE";
 }
-
+2>> $LOGFILE
 _log "starting..";
 
 #    '#' are comments
 # turn off system bell if on display
 if [ -n "$DISPLAY" ]; then
-  xset b off;
+  xset b off 2>> $LOGFILE;
 fi
 
 _log "substitute x resources";
 # loads up configuration for X resources
-[ -f ~/.Xresources ] && xrdb -load ~/.Xresources;
+[ -f ~/.Xresources ] && xrdb -load ~/.Xresources 2>> $LOGFILE;
 
 _log "screen resolution";
 # screen resolution
 hn=$(eval cat /etc/hostname);
 if [ "$hn" = "lups03" ]; then
   # monitor resolusion
-  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0 ; # dell
-  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0 ;             # lg
+  xrandr --output DVI-I-0 --mode 1920x1080 --primary --right-of HDMI-0  2>> $LOGFILE; # dell
+  xrandr --output HDMI-0 --mode 1280x720 --left-of DVI-I-0  2>> $LOGFILE;             # lg
 elif [ "$hn" = "lups08" ]; then
   # monitor resolusion
-  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1 ; # dell
-  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2 ;          # samsung
+  xrandr --output DVI-I-2 --mode 1920x1080 --primary --left-of DVI-I-1  2>> $LOGFILE; # dell
+  xrandr --output DVI-I-1 --mode 1280x1024 --right-of DVI-I-2  2>> $LOGFILE;          # samsung
 #elif [ "$hn" = "MORDOR" ]; then
 fi
 
 _log "wallpaper";
 # set background to your favorite pic
-wp=$HOME/Pictures/Wallpapers;
-feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg;
+wp=~/Pictures/Wallpapers;
+feh --bg-scale "$wp"/gandalf-minimalist.jpg --bg-scale "$wp"/the-ring-minimalist.jpg 2>> $LOGFILE;
 #xsetbg -fullscreen "$wp"/gandalf-minimalist.jpg;
 _log "..finishing";
