@@ -22,15 +22,21 @@ __promp_command ()
 
 def_user_wcolor ()
 {
+  USER=${USER:=$(whoami)};
   local _usercolor=${USERNAMECOLOR[${USER}]}
   _usercolor=${_usercolor:=$USRDEFCLR};
   echo -e "${_usercolor}${USER}${NC}";
 }
 
+# @TODO fix, the associative arrays breaks when trying to index it with
+# a string that start with `0`, since bash interprets it as a octal number
+# so if there is any characther not in [0..8) it will give an error
+# about too great value..
+# .. no workaound found will now
 def_host_wcolor ()
 {
   local _hn=$(hostname -s);
-  local _hostcolor=${HOSTNAMECOLOR[${_hn}]}
+  local _hostcolor=${HOSTNAMECOLOR[${_hn}]}; # @fix: it breaks when hostname start with a number
   _hostcolor=${_hostcolor:=$HSTDEFCLR};
   echo -e "${_hostcolor}${_hn}${NC}";
 }
