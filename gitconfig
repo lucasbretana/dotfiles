@@ -28,6 +28,7 @@
 [alias]
 	amend = !"git commit --amend -C HEAD"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lo = log --oneline
 	sm = log --summary
 	
 	# hard reset
