@@ -7,7 +7,6 @@ img=~/Pictures/res/rick_lock.png
 revert() {
   rm /tmp/*screen*.png
   xset dpms 0 0 0
-  echo "a";
 }
 trap revert HUP INT TERM
 xset +dpms dpms 0 0 5
