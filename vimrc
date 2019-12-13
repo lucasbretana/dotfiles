@@ -15,6 +15,8 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'wakatime/vim-wakatime'  " wakatime integration
 Plugin 'tpope/vim-fugitive'     " vim integration with git
 Plugin 'jacoborus/tender.vim'   " tender theme for vim
+Plugin 'airblade/vim-gitgutter' " gitgutter, indicate lines modified
+Plugin 'scrooloose/nerdtree'    " nerdtree
 
 call vundle#end()            " required
 
@@ -140,18 +142,41 @@ set laststatus=2
 set statusline=%-5.20f:%-2.4L,%-2.4c[%-2.4p%%]
 
 " New characters for the list option
-set showbreak=↪\ 
+set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Color
-" If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
-  set termguicolors
-  execute 'colorscheme tender'
-else
-  " Is is all about using less lines, amirite?
-  execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
-endif
+"" If you have vim >=8.0 or Neovim >= 0.1.5
+"if (has("termguicolors"))
+"  set termguicolors
+"  execute 'colorscheme tender'
+"else
+"  " Is is all about using less lines, amirite?
+"  execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
+"endif
+syntax enable
+execute 'colorscheme tender'
+
+set termguicolors
 
 " Wrap
 set linebreak
+
+" Quickly update
+set updatetime=100
+
+" Gitgutter maps
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+
+" Enable NERDTree by default (except when authoring a commit message) but place cursor in other buffer
+autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | wincmd p | endif
+
+" Exit vim if the last buffer is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Clear trailing whitespace on file save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Allow 'w!!' to save with sudo privileges.
+cabbr w!! w !sudo tee > /dev/null %

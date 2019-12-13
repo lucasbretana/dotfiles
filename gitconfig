@@ -4,7 +4,7 @@
 	name = Lucas Eduardo Bretana
 	email = lebretana@inf.ufpel.edu.br
 [core]
-	fileMode = false
+	filemode = false
 	excludesfile = ~/.gitignore
 [color]
 	status = auto
