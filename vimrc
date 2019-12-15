@@ -1,88 +1,61 @@
-" enter in the current millenium
-set nocompatible
+" ==============================================================================
+" -- MAIN CONFIGS DEPENDENCIES -------------------------------------------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-filetype off " mandatory for vundle..
-" Vundle, plugin manager
+" ==============================================================================
+" -- VUNDLE PLUGIN ----------------------------------------
+" add Vundle to runtime
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/vundle-pluging')
-Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-" :h vundle         - for more details or wiki for FAQ
+call vundle#begin()
 
-Plugin 'wakatime/vim-wakatime'  " wakatime integration
-Plugin 'tpope/vim-fugitive'     " vim integration with git
-Plugin 'jacoborus/tender.vim'   " tender theme for vim
-Plugin 'airblade/vim-gitgutter' " gitgutter, indicate lines modified
-Plugin 'scrooloose/nerdtree'    " nerdtree
+Plugin 'wakatime/vim-wakatime'   " Waka Time integration
+Plugin 'tpope/vim-fugitive'      " integration with git
+Plugin 'jacoborus/tender.vim'    " tender theme
+Plugin 'airblade/vim-gitgutter'  " git indication on modified lines
+Plugin 'scrooloose/nerdtree'     " file tree explorer
 
-call vundle#end()            " required
+" Vundle manages Vundle, mandatory
+Plugin 'VundleVim/Vundle.vim'
+" Vundle brief
+" :PluginList              - lists configured plugins
+" :PluginInstall           - installs plugins;       `!` updates them
+" :PluginSearch <foo>      - searches for foo;       `!` refreshes local cache
+" :PluginClean             - removes unused plugins; `!` to auto-approve removal
+" :h vundle                - for more details or wiki for FAQ
 
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on " vim default plugins
-" colors are on this season
+call vundle#end()                " end of Vundle, required
 "
-syntax on
+" ==============================================================================
+" -- MAIN CONFIGS --------------------------------------------------------------
+set updatetime=100               " quickly update
 
-" fuzzy finder: use to find fils on vim
-set path+=**
-" - Hit the <tab>  to :find by partial match
-" - Use regex to make it fuzzy
+" ==============================================================================
+" -- NAVIGATION N' AUTOCOMPLETE ------------------------------------------------
+set path+=**                    " fuzzy finder, regex and tab completion
+" NOTE: :b lets you autocomplete any open buffer
 
-" THINGS TO CONSIDER
-" - :b lets you autocomplete any open buffer
-
-" :MakeTags - creates a tags file to find references
-" tags dependes on: ctags
+" vim can navigate through files with that
 command! MakeTags !ctags -R .
-" NOW WE CAN USE
-" - use  ^] to jump to tag under cursor
-" - use g^] for ambiguos tags
-" - use  ^i to jump in, entering one on tag stack
-" - use  ^o to jump out, backing one on tag stack
-" - use  ^t to jump out, but also pop out something from the tag stack
+" NOTE: use  ^] to jump to tag under cursor
+" NOTE: use g^] for ambiguous tags
+" NOTE: use  ^i, ^o, ^t to jump in, out, pop out tags on the stack
 
-" autocomplete: used to autocomplete based on several information, such as
-" tags file, the current file, some know stuff about a certain language, ...
-" NOW WE CAN
-" - ^n to suggest completation based pn any know stuff
-" - ^x^n to suggest from only the current file
-" - ^x^] to suggest from tags file
-" - ^x^f for paths names (works great with the path trick)
-"
-" THINGS TO CONSIDER
-" - use ^n and ^p to go back and forward on suggestions
-" - no need to do any extra command
-" - vim already know how to read tags and know some stuff about languages
-"
-" file browsing: a small and simple (in my use) file browser inside vim
-let g:netrw_banner        = 0   " disable annoying banner
-let g:netrw_browser_split = 4   " open in prior window
-let g:netrw_altv          = 1   " open split to the right
-let g:netrw_winsize       = 99  " control initial window size
-let g:netrw_liststyle     = 3   " tree view
-let g:netrw_list_hide     = netrw_gitignore#Hide()
-let g:netrw_list_hide    .= ',\(^\|\s\s\)\zs\.\S\='
+set wildmenu                    " menu to tab complete
+" AUTOCOMPLETE: use tags, names, etc. in file and about the language..
+" NOTE: ^n to suggest completion based on any know stuff
+" NOTE: ^x^n to suggest from only the current file
+" NOTE: ^x^] to suggest from tags file
+" NOTE: ^x^f for paths names (works great with the path trick)
+" NOTE: use ^n and ^p to go back and forward on suggestions
 
-" tabs usefull remaps
-" gt - next tab
-" gT - previous tab
-" Ngt/NgT - repeat gt/gT N times
-" - :tabedit <file> edits a file in a new tab
-" - :tabfirst
-" - :tabnext
-" - :tabclose and :tabonly
-"
-" NOW WE CAN
-" - :edit a folder to a file file browser
-" - <CR>/v/t to open in an h-split/h-split/tab
-" - check | netrw-browse-maps| for more examples
-"
-" snippets: combine command
+" modification hunk navigation (Git Gutter)
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+
+" ==============================================================================
+" -- SNIPPETS AND TEMPLATES -----------------------------------------------------
+" SNIPPETS: combine command from $TEMPLATES folder
 nnoremap ,html        :-1read $TEMPLATES/Programming/index.html<CR>4jwf>
 nnoremap ,php         :-1read $TEMPLATES/Programming/index.php<CR>j$
 nnoremap ,mainC       :-1read $TEMPLATES/Programming/main.c<CR>10j$
@@ -92,91 +65,62 @@ nnoremap ,mainJava    :-1read $TEMPLATES/Programming/Main.java<CR>7j$
 nnoremap ,classJava   :-1read $TEMPLATES/Programming/Test.java<CR>3j$
 nnoremap ,shell       :-1read $TEMPLATES/Programming/shell.sh<CR>3j:s/-setdate-/\=strftime("%c")<CR>3j$
 nnoremap ,css         :-1read $TEMPLATES/Programming/style.css<CR>
-nnoremap ,js          :-1read $TEMPLATES/Programming/utils.js<CR>6j
-" NOW WE CAN CONQUER THE WORLD!
-" - with much less keyword
-"
-" THINGS TO CONSIDER
-" - the interface of the snippets is the collest stuff
-" - the nnoremap start with an n so this commnad is to be used on normal mode
-" - the comma (,) is to enter command mode and execute whatever comes after
-"   after :
-" - the -1 is to back a line before prints the read content (so there is no
-"   extra line)
-" - the <CR> is to enter the command descibre above, and when in command mode
-"   it executes a command it goes back to normal mode, now every thing that
-"   works on normal mode works
-"
-" THINGS TO CONSIDER
-" - zz: move current line to middle
-"   zt: move current line to top screen -scrolloff lines
-"   zb: move current line to bottom screen -scrolloff lines
-set scrolloff=5
 
-" menu to tab complete (and maybe more)
-set wildmenu
+" ==============================================================================
+" -- DEF PLUGINS N' VISUALIZATION -----------------------------------------------
+filetype indent plugin on       " lots of cool stuff by file specific type
 
-set autoindent
-
-set list
-set number
-set relativenumber
-set numberwidth=1
-
-set ignorecase
-set smartcase
-
-" set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-"set expandtab
-set noexpandtab
-
-" display the current mode and partially-typed commands in the status line:
-set showmode
-set showcmd
-
-" status line
-set laststatus=2
-"set statusline=%-5.20f:%-2.4L,%-2.4c[%-2.4p%%]w:%3.10m%-3.4r
-set statusline=%-5.20f:%-2.4L,%-2.4c[%-2.4p%%]
-
-" New characters for the list option
-set showbreak=↪\
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-
-" Color
-"" If you have vim >=8.0 or Neovim >= 0.1.5
-"if (has("termguicolors"))
-"  set termguicolors
-"  execute 'colorscheme tender'
-"else
-"  " Is is all about using less lines, amirite?
-"  execute 'colorscheme ' . (strftime('%H') < 20 ? 'desert' : 'ron')
-"endif
-syntax enable
-execute 'colorscheme tender'
-
-set termguicolors
-
-" Wrap
-set linebreak
-
-" Quickly update
-set updatetime=100
-
-" Gitgutter maps
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-
-" Enable NERDTree by default (except when authoring a commit message) but place cursor in other buffer
+" ==============================================================================
+" -- INTERFACE -----------------------------------------------------------------
+" NERDTree open by default, with cursor on other buffer
 autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | wincmd p | endif
 
-" Exit vim if the last buffer is NERDTree
+" exit vim on NERDTree only buffer left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Clear trailing whitespace on file save
+set termguicolors                " color
+" nice theme
+execute 'colorscheme tender'
+syntax on                        " colors are on this season
+set scrolloff=3                  " scrollbar offset
+
+set list                         " show invisible characters (space, enter..)
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+
+set number                       " line number
+set relativenumber               " more cool line number
+set numberwidth=5                " line number width, Vim defaults is 4
+
+set smartcase                    " ignore case in search, except if use UPPER
+
+set laststatus=2                 " always display status line
+set showmode                     " display mode on status line
+set showcmd                      " display commands on status line
+set statusline=
+set statusline+=%{FugitiveStatusline()}
+set statusline+=%5.20f:%-2.4L,%-2.4c[%-2.4p%%]
+
+set autoindent                   " copy indent from other lines
+
+" ==============================================================================
+" -- EDITING DEFAULTS ----------------------------------------------------------
+"set textwidth 0                  " no line breaking with line breaking
+set nolinebreak                  " no line breaking
+set nowrap                       " no line wrapping
+
+" tab/space war solved
+set shiftwidth=2                 " use 2 spaces on <<, >>, ==
+set expandtab                    " replace tab for spaces
+set softtabstop=2                " use 2 spaces instead of tab on insert
+
+" ==============================================================================
+" -- CLOSING VI ----------------------------------------------------------------
+" clear trailing white spaces on file save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Allow 'w!!' to save with sudo privileges.
+" save with privileges using w!!
 cabbr w!! w !sudo tee > /dev/null %
+
+" =========================================================
+" -- SYSTEM DEPENDENCIES ----------------------------------
+" ctags : used by :MakeTags command
