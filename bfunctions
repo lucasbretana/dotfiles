@@ -270,7 +270,7 @@ tolow ()
 # man: flip a coin, faster than Google's
 flipacoin ()
 {
-  [ $[ $RANDOM % 2] == 0 ] && echo "Heads" || echo "Tails";
+  [ $[ $RANDOM % 2] == 0 ] && echo ${1:-"Heads"} || echo ${2:-"Tails"};
 }
 
 # man: gets the weahter from the wttr sie and shows in terminal

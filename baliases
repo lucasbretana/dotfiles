@@ -57,6 +57,8 @@ alias tls='tmux ls'                           # tmux list with less keystrokes
 alias wc='wc -l'                              # wc with fixed point operation
 alias tree='tree -F'                          # indicates file type
 alias gonodo='cd ~/Documents/projects/nodo'   # nodo's workspace directory
+alias todo='vim ~/Documents/TODO.md'          # default to do list
+alias :q='exit'
 #alias spotify-pause='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause' 
 #alias spotify-play='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause' 
 #alias spotify-stop='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop'
