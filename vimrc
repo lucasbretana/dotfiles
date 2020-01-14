@@ -10,10 +10,13 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'wakatime/vim-wakatime'   " Waka Time integration
-Plugin 'tpope/vim-fugitive'      " integration with git
-Plugin 'jacoborus/tender.vim'    " tender theme
-Plugin 'airblade/vim-gitgutter'  " git indication on modified lines
 Plugin 'scrooloose/nerdtree'     " file tree explorer
+Plugin 'jacoborus/tender.vim'    " tender theme
+"
+"git plugins
+Plugin 'tpope/vim-fugitive'      " integration with git
+Plugin 'tpope/vim-unimpaired'    " tpope has the best shortcuts
+Plugin 'airblade/vim-gitgutter'  " git indication on modified lines
 
 " Vundle manages Vundle, mandatory
 Plugin 'VundleVim/Vundle.vim'
@@ -105,8 +108,9 @@ set autoindent                   " copy indent from other lines
 " ==============================================================================
 " -- EDITING DEFAULTS ----------------------------------------------------------
 "set textwidth 0                  " no line breaking with line breaking
-set nolinebreak                  " no line breaking
-set nowrap                       " no line wrapping
+set wrap                         " line wrapping (doesn't change the buffer)
+set linebreak                    " breaks between words
+set breakindent                  " indent wrapped lines
 
 " tab/space war solved
 set shiftwidth=2                 " use 2 spaces on <<, >>, ==
