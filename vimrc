@@ -9,14 +9,15 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'wakatime/vim-wakatime'   " Waka Time integration
-Plugin 'preservim/nerdtree'     " file tree explorer
-Plugin 'jacoborus/tender.vim'    " tender theme
+Plugin 'wakatime/vim-wakatime'        " Waka Time integration
+Plugin 'preservim/nerdtree'           " file tree explorer
+Plugin 'Xuyuanp/nerdtree-git-plugin'  " a nice complementary plugin for NERDTree
+Plugin 'jacoborus/tender.vim'         " tender theme
 "
 "git plugins
-Plugin 'tpope/vim-fugitive'      " integration with git
-Plugin 'tpope/vim-unimpaired'    " tpope has the best shortcuts
-Plugin 'airblade/vim-gitgutter'  " git indication on modified lines
+Plugin 'tpope/vim-fugitive'           " integration with git
+Plugin 'tpope/vim-unimpaired'         " tpope has the best shortcuts
+Plugin 'airblade/vim-gitgutter'       " git indication on modified lines
 
 " Vundle manages Vundle, mandatory
 Plugin 'VundleVim/Vundle.vim'
@@ -55,6 +56,10 @@ set wildmenu                    " menu to tab complete
 " modification hunk navigation (Git Gutter)
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
+
+
+" NERDTree shortcut
+map <C-n> :NERDTreeToggle<CR>
 
 " ==============================================================================
 " -- SNIPPETS AND TEMPLATES -----------------------------------------------------
