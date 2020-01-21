@@ -10,7 +10,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'wakatime/vim-wakatime'   " Waka Time integration
-Plugin 'scrooloose/nerdtree'     " file tree explorer
+Plugin 'preservim/nerdtree'     " file tree explorer
 Plugin 'jacoborus/tender.vim'    " tender theme
 "
 "git plugins
