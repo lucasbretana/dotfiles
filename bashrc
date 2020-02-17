@@ -1,15 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.  # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) # for examples
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth;
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=-1;
-
-# added personal bin scripts
-if [ -d ~/.bin ]; then
-  PATH=$HOME/.bin:$PATH;
-fi
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
 # public variables definitions.
 # you may want to put your private additions into a separate file like
@@ -22,6 +12,12 @@ fi
 if [ -f ~/.benv.priv ]; then
     . ~/.benv.priv;
 fi
+
+# added personal bin scripts
+if [ -d ~/.bin ]; then
+  PATH=$HOME/.bin:$PATH;
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.baliases, instead of adding them here directly.
