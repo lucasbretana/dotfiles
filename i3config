@@ -94,6 +94,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # =========================================================
 # -- COMMON APPLICATIONS SHORTCUTS ------------------------
+# kill focused window
+bindsym $mod+q kill
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
