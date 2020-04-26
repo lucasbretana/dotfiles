@@ -81,7 +81,7 @@ filetype indent plugin on       " lots of cool stuff by file specific type
 " ==============================================================================
 " -- INTERFACE -----------------------------------------------------------------
 " NERDTree open by default, with cursor on other buffer
-autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | wincmd p | endif
+"autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | wincmd p | endif
 
 " exit vim on NERDTree only buffer left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -99,7 +99,8 @@ set number                       " line number
 set relativenumber               " more cool line number
 set numberwidth=5                " line number width, Vim defaults is 4
 
-set smartcase                    " ignore case in search, except if use UPPER
+set ignorecase                   " ignore case in search..
+set smartcase                    " ..except if use UPPER
 
 set laststatus=2                 " always display status line
 set showmode                     " display mode on status line
