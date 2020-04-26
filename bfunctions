@@ -23,8 +23,8 @@ __promp_command ()
 def_user_wcolor ()
 {
   USER=${USER:=$(whoami)};
-  local _usercolor=${USERNAMECOLOR[${USER}]}
-  _usercolor=${_usercolor:=$USRDEFCLR};
+  [ "${USER}" = "lucas.bretana" ] && USER="lucasbretana";
+  local _usercolor=${USERNAMECOLOR["${USER}"]} 2> /dev/null || local _usercolor=${_usercolor:=$USRDEFCLR};
   echo -e "${_usercolor}${USER}${NC}";
 }
 
