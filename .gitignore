@@ -1,3 +1,5 @@
 *.priv
 *.swp
 *.swo
+
+.dotfiles.priv/*
