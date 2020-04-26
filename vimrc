@@ -33,6 +33,7 @@ call vundle#end()                " end of Vundle, required
 " ==============================================================================
 " -- MAIN CONFIGS --------------------------------------------------------------
 set updatetime=100               " quickly update
+set backspace=indent,eol,start   " explicitely defines backspace overrides
 
 " ==============================================================================
 " -- NAVIGATION N' AUTOCOMPLETE ------------------------------------------------
