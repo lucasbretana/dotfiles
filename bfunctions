@@ -87,11 +87,7 @@ def_date_wcolor ()
 
 def_branch_wcolor ()
 {
-  git status &> /dev/null;
-  if [ $? != 0 ]; then 
-    echo "";
-    return;
-  fi
+  git status &> /dev/null || { echo ""; return; };
 
   local _branch="";
   _branch+=${BRADEFCLR};
