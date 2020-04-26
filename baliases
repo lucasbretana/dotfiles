@@ -11,7 +11,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 elif [ ${CLICOLOR} = "YES" ]; then
-  alias ls='ls -t -F'
+  alias ls='ls -t -F -A'
 fi
 
 ##
