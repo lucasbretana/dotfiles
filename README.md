@@ -37,3 +37,18 @@ E.g.:
   + .baliases define some common aliases
     * this file uses shell variables heavily
   + .bfunctions common scripts functions, some may have a doc info
+
+### TO DO
+- fix this README file
+
+- move from `i3` to other wm with transparency support
+  * use `compton` for transparency, maybe?
+
+- adjust the binaries for better shown
+
+- also list dependencies for the system
+
+- use `.gif` as wallpapers
+  * w/ terminal transparency this is going to be sweet
+  * also create some floating applications in right vertical
+    + for big screens since code uses little space
