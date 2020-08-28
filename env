@@ -2,29 +2,29 @@
 declare -A FILELOC
 
 # bash
-FILELOC[baliases]=~/.baliases
-FILELOC[bashrc]=~/.bashrc
-FILELOC[benv]=~/.benv
-FILELOC[benv.priv]=~/.benv.priv
-FILELOC[bfunctions]=~/.bfunctions
+FILELOC[home/baliases]=~/.baliases
+FILELOC[home/bashrc]=~/.bashrc
+FILELOC[home/benv]=~/.benv
+FILELOC[home/benv.priv]=~/.benv.priv
+FILELOC[home/bfunctions]=~/.bfunctions
 # debug, editor and terminal multiplexer
-FILELOC[gdbinit]=~/.gdbinit
-FILELOC[vimrc]=~/.vimrc
-FILELOC[tmux.conf]=~/.tmux.conf
+FILELOC[home/gdbinit]=~/.gdbinit
+FILELOC[home/vimrc]=~/.vimrc
+FILELOC[home/tmux.conf]=~/.tmux.conf
 # i3
-FILELOC[i3config]=~/.config/i3/config
-FILELOC[i3statusconfig]=~/.config/i3status/config
-FILELOC[i3blocksconfig]=~/.config/i3blocks/config
-# fun
-FILELOC[daily_quotes.txt]=~/.daily_quotes.txt
+FILELOC[home/i3config]=~/.config/i3/config
+FILELOC[home/i3statusconfig]=~/.config/i3status/config
+FILELOC[home/i3blocksconfig]=~/.config/i3blocks/config
 # X
-FILELOC[xsessionrc]=~/.xsessionrc
-FILELOC[xinitrc]=~/.xinitrc
-FILELOC[Xresources]=~/.Xresources
+FILELOC[home/xsessionrc]=~/.xsessionrc
+FILELOC[home/xinitrc]=~/.xinitrc
+FILELOC[home/Xresources]=~/.Xresources
 # git
-FILELOC[gitconfig]=~/.gitconfig
-FILELOC[gitignore]=~/.gitignore
+FILELOC[home/gitconfig]=~/.gitconfig
+FILELOC[home/gitignore]=~/.gitignore
 # bin files and scripts
-FILELOC[bin]=~/.bin
+FILELOC[home/bin]=~/.local/bin
+# fun
+FILELOC[home/txt]=~/.local/res
 
 export FILELOC;

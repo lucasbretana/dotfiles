@@ -1,0 +1,50 @@
+[core]
+  filemode = false
+  excludesfile = ~/.gitignore
+
+[color]
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  ui = true
+
+[user]
+  name = Lucas Bretana
+  email = lucas.bretana@nodo.cc
+
+###### aliases ######
+[alias] ### ABBREV ##
+  st = status
+  cm = commit
+  am = amend
+  fe = fetch
+  fs = reset
+  ch = checkout
+  ck = checkout
+  br = branch
+  lo = log --oneline
+  sm = log --summary
+  lg = lgraph
+  lt = ltree
+
+  al = aliases
+###  NEW COMMANDS  ##
+  # status
+  untracked = ls-files . --exclude-standard --others
+  ignored = ls-files . --ignored --exclude-standard --others
+  # log
+  lgraph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative # decorated graph view of one liner summarized commits from all branches. (inspired by git-extras)
+  ltree = log --all --graph --decorate --oneline --simplify-by-decoration
+  # HEAD changes
+  rshard = reset --hard HEAD
+  undolast = reset --soft HEAD^     # undo last commit keeping files in stage
+  unstage = reset HEAD # unstage file
+  discard = checkout HEAD # unstage and remove local changes
+  # story
+  amend = !"git commit --amend -C HEAD"
+  # usefull
+  aliases = config --get-regexp alias
+  contributors = !git shortlog -n -s --no-merges $@ | cat - && echo && echo total $(git rev-list --count HEAD) # list contributor stats for this repo
+
+# vim: ts=2 sw=2

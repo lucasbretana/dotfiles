@@ -1,5 +1,7 @@
 #/usr/bin/env bash
 
+set -euo pipefail
+
 bf="/sys/class/backlight/intel_backlight/brightness";
 cb=$(cat $bf);
 nb=$(($cb-10))

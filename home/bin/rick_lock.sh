@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ueo pipefail
+
 # Config
 img=~/Pictures/res/rick_lock.png
 # EndConfig

@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # @autor: Bretana
-# @date: Thu 16 May 2019 03:08:32 PM -03 
+# @date: Thu 16 May 2019 03:08:32 PM -03
 # github: lucasbretana
+
+set -ueo pipefail
 
 mx_file=/sys/class/backlight/intel_backlight/max_brightness
 bg_fil=/sys/class/backlight/intel_backlight/brightness
