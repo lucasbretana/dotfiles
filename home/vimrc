@@ -20,6 +20,20 @@ Plugin 'tpope/vim-fugitive'           " integration with git
 Plugin 'tpope/vim-unimpaired'         " tpope has the best shortcuts
 Plugin 'airblade/vim-gitgutter'       " git indication on modified lines
 
+" js plugin
+"Plugin 'jsbeautify'
+"Plugin 'Align'
+"Plugin 'file-line'
+"Plugin 'Syntastic'
+"Plugin 'Tagbar'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'vim-coffee-script'
+"Plugin 'https://github.com/digitaltoad/vim-jade.git'
+"Plugin 'https://github.com/wavded/vim-stylus.git'
+"Plugin 'mxw/vim-jsx'
+
+" vim auto indentation, some plugin also use it
+filetype plugin indent on              " required!
 " Vundle manages Vundle, mandatory
 Plugin 'VundleVim/Vundle.vim'
 " Vundle brief
@@ -29,8 +43,19 @@ Plugin 'VundleVim/Vundle.vim'
 " :PluginClean             - removes unused plugins; `!` to auto-approve removal
 " :h vundle                - for more details or wiki for FAQ
 
+" ==============================================================================
+" -- PROGRAMMINS SETUP: PLUGINS ------------------------------------------------
+" if there is a programming env, try to load vim setup
+if ( !empty($PROGRAMMING_ENV) )
+  try
+    source ~/.vim/envs/$PROGRAMMING_ENV.plugins.vim
+  catch
+    " No such file? No problem; just ignore it.
+  endtry
+endif
+
 call vundle#end()                " end of Vundle, required
-"
+
 " ==============================================================================
 " -- MAIN CONFIGS --------------------------------------------------------------
 set updatetime=100               " quickly update
@@ -125,6 +150,16 @@ set shiftwidth=2                 " use 2 spaces on <<, >>, ==
 set expandtab                    " replace tab for spaces
 set softtabstop=2                " use 2 spaces instead of tab on insert
 
+" ==============================================================================
+" -- PROGRAMMINS SETUP ---------------------------------------------------------
+" if there is a programming env, try to load vim setup
+if ( !empty($PROGRAMMING_ENV) )
+  try
+    source ~/.vim/envs/$PROGRAMMING_ENV.vim
+  catch
+    " No such file? No problem; just ignore it.
+  endtry
+endif
 " ==============================================================================
 " -- CLOSING VI ----------------------------------------------------------------
 " clear trailing white spaces on file save
