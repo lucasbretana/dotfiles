@@ -6,8 +6,8 @@ __promp_command ()
   PS1="";
   # line 1
   PS1+="\n[$(def_user_wcolor) ${purple}at${NC} $(def_host_wcolor)]:[$(def_local_wcolor)]$(def_branch_wcolor)";
-  # ine 2
-  PS1+="\n  \\-- $(def_date_wcolor) $(pretty_battery)";
+# # line 2
+# PS1+="\n  \\-- $(def_date_wcolor) $(pretty_battery)";
   # line 3
   PS1+="\[${CYAN}\]";
   PS1+="\[\n\]$\[ \]_";
@@ -32,7 +32,7 @@ def_user_wcolor ()
 # a string that start with `0`, since bash interprets it as a octal number
 # so if there is any characther not in [0..8) it will give an error
 # about too great value..
-# .. no workaound found will now
+# .. no workaound found till now
 def_host_wcolor ()
 {
   local _hn=$(hostname -s);
@@ -106,7 +106,7 @@ def_branch_wcolor ()
 }
 
 # man: prints one (or more) symbol(s) that represent the stage of a git repositorie in relation to server
-# parameter: 1 - the branch name (mandotory)
+# parameter: 1 - the branch name (mandatory)
 getgitsymbol ()
 {
   [ ${#1} = 0 ] && echoerr "getgitsymbol: missing branch" && return 1;
@@ -236,7 +236,11 @@ colors ()
 define ()
 {
   [ ${#1} = 0 ] && echoerr "define: no word to be defined" && return 1;
-  curl -s "https://www.collinsdictionary.com/dictionary/english/$*" | sed -n '/class="def"/p' | awk '{gsub(/.*<span class="def">|<\/span>.*/,"");print}' | sed "s/<[^>]\+>//g";
+  local _ln=${2:-en};
+  curl --silent "https://api.dictionaryapi.dev/api/v2/entries/${_ln}/${1}" | jq .[].meanings[].definitions[].definition 2> /dev/null
+
+  [ $? != 0 ] && echoerr "Could not define that :(";
+  #curl -s "https://www.collinsdictionary.com/dictionary/english/$*" | sed -n '/class="def"/p' | awk '{gsub(/.*<span class="def">|<\/span>.*/,"");print}' | sed "s/<[^>]\+>//g";
 }
 
 # man: used to convert some manual to a PDF file
@@ -267,6 +271,13 @@ tolow ()
 flipacoin ()
 {
   [ $[ $RANDOM % 2] == 0 ] && echo ${1:-"Heads"} || echo ${2:-"Tails"};
+}
+
+# man: curl request expecting 200 code
+amionline ()
+{
+  curl --silent -LI google.com | egrep "HTTP.*200 OK" 1> /dev/null;
+  [ ${?} == 0 ] && echo "Yep" || echo "Nop";
 }
 
 # man: gets the weahter from the wttr sie and shows in terminal

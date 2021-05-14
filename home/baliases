@@ -43,7 +43,6 @@ alias less='less -x 2'
 if ! type open &> /dev/null; then
   alias open='xdg-open'
 fi
-alias cls='clear ; ls -h'
 alias ll='ls -Alth'
 alias la='ls -Alh'
 alias l='ls -CF'
@@ -51,11 +50,12 @@ alias ping8='ping 8.8.8.8'
 alias p8='ping 8.8.8.8'
 alias pingg='ping dns.google'
 alias pg='ping dns.google'
-alias cls='clear && ls'
+alias cls='clear && /bin/ls'
 alias whereamirly='pwd -P'
 alias whereami='pwd -L'
 alias myip='hostname -I | cut -d" " -f 1'
-alias myexip='dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | xargs'
+alias myexip='curl -4 icanhazip.com'
+alias myexip6='curl -6 icanhazip.com'
 alias goreal='cd $(whereamirly)'
 alias enterasspace='tr "\n" " "'              # lazy ass substitute commands
 alias spaceasenter='tr " " "\n"'              # lazy ass substitute commands
