@@ -164,6 +164,7 @@ endif
 " -- CLOSING VI ----------------------------------------------------------------
 " clear trailing white spaces on file save
 autocmd BufWritePre * :%s/\s\+$//e
+" ps use ':noautocmd w' to bypass this
 
 " save with privileges using w!!
 cabbr w!! w !sudo tee > /dev/null %

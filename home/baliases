@@ -35,7 +35,7 @@ alias getlogo='screenfetch'
 ##
 # useful commands, as aliases
 alias :q='exit'
-alias reloadbash='clear;source ~/.bashrc;'
+alias reloadbash='clear;source ~/.bashrc'
 alias mv='mv -i'
 alias cp='cp -i'
 alias su='su -l'

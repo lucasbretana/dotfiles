@@ -44,7 +44,7 @@ def_host_wcolor ()
 def_local_wcolor ()
 {
   local _pwd="";
-  git status &> /dev/null;
+  timeout 2s git status &> /dev/null;
   if [ $? == 0 ]; then
     # NEW IMPLEMENTATION
     #local _fullpwd=$(git rev-parse --show-toplevel);
@@ -277,7 +277,11 @@ flipacoin ()
 amionline ()
 {
   curl --silent -LI google.com | egrep "HTTP.*200 OK" 1> /dev/null;
-  [ ${?} == 0 ] && echo "Yep" || echo "Nop";
+  if [ ${?} -eq 0 ]; then
+    ( cowsay "Yep" | lolcat ) || echo "${BLUE}Yep${NC}";
+  else
+    ( figlet "Nop" | lolcat ) || echo "${RED}Nop${NC}";
+  fi
 }
 
 # man: gets the weahter from the wttr sie and shows in terminal
