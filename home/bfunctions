@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-__promp_command ()
+__prompt_command ()
 {
   local _ret=$?;
   PS1="";
@@ -10,13 +10,13 @@ __promp_command ()
 # PS1+="\n  \\-- $(def_date_wcolor) $(pretty_battery)";
   # line 3
   PS1+="\[${CYAN}\]";
-  PS1+="\[\n\]$\[ \]_";
+  PS1+="\n$ _";
   if [ ${_ret} != 0 ]; then
     PS1+="\[${red}\]";
   else
     PS1+="\[${CYAN}\]";
   fi
-  PS1+="> ";
+  PS1+=">";
   PS1+="\[${NC}\]";
 }
 

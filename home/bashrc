@@ -82,7 +82,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-  PROMPT_COMMAND=__promp_command; # function to generate PS1 ;)
+  PROMPT_COMMAND=__prompt_command; # function to generate PS1 ;)
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]$ ';
 fi

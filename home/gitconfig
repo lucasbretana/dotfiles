@@ -46,5 +46,7 @@
   # usefull
   aliases = config --get-regexp alias
   contributors = !git shortlog -n -s --no-merges $@ | cat - && echo && echo total $(git rev-list --count HEAD) # list contributor stats for this repo
+  # skip the post commit scripts
+  cmi = commit --no-post-rewrite --no-verify
 
 # vim: ts=2 sw=2
