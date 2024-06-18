@@ -276,8 +276,8 @@ flipacoin ()
 # man: curl request expecting 200 code
 amionline ()
 {
-  curl --silent -LI google.com | egrep "HTTP.*200 OK" 1> /dev/null;
-  if [ ${?} -eq 0 ]; then
+  if curl --connect-timeout 5 --silent -I http://amionline.net/ | egrep "HTTP.*200 OK" 1> /dev/null; then
+  #if [ ${?} -eq 0 ]; then
     ( cowsay "Yep" | lolcat ) || echo "${BLUE}Yep${NC}";
   else
     ( figlet "Nop" | lolcat ) || echo "${RED}Nop${NC}";
@@ -544,4 +544,13 @@ http_code_emot ()
       echoerr "Non supported code :(";
     ;;
   esac
+}
+
+
+function terraform_change_region () {
+  echo -e "Change the following: \n" \
+    "cp *.tfstate* TFSTATE.env.region\n" \
+    "cp TFSTATE.env.n_region/*.tfstate* .\n" \
+    "sed s/region/n_region/ provider.tf\n" \
+    "terraform validate && terraform plan"
 }

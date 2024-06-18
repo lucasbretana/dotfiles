@@ -16,7 +16,9 @@ fi
 alias ..='cd ../../'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
-
+##
+# docker aliases
+alias dockerps-pretty='docker ps --format "table {{.Names}}\\t{{.Command}}\\t{{.Ports}}\\t{{.Status}}"'
 ##
 # compiler alias]
 alias gcc='gcc -Wall -Wextra'
@@ -47,14 +49,16 @@ alias ll='ls -Alth'
 alias la='ls -Alh'
 alias l='ls -CF'
 alias ping8='ping 8.8.8.8'
-alias p8='ping 8.8.8.8'
+alias p8='ping -c10 8.8.8.8'
+alias p8h='ping -c10 8.8.8.8 | grep "time=" | cut -d= -f4 | sort -nr | head -n1 | cowsay'
 alias pingg='ping dns.google'
-alias pg='ping dns.google'
+alias pg='ping -c10 dns.google'
+alias pgh='ping -c10 dns.google.com | grep "time=" | cut -d= -f4 | sort -nr | head -n1 | cowsay'
 alias cls='clear && /bin/ls'
 alias whereamirly='pwd -P'
 alias whereami='pwd -L'
 alias myip='hostname -I | cut -d" " -f 1'
-alias myexip='curl -4 icanhazip.com'
+alias myexip='curl -s4 icanhazip.com'
 alias myexip6='curl -6 icanhazip.com'
 alias goreal='cd $(whereamirly)'
 alias enterasspace='tr "\n" " "'              # lazy ass substitute commands
@@ -62,6 +66,8 @@ alias spaceasenter='tr " " "\n"'              # lazy ass substitute commands
 alias tls='tmux ls'                           # tmux list with less keystrokes
 alias wc='wc -l'                              # wc with fixed point operation
 alias tree='tree -F'                          # indicates file type
+alias bat='batcat'                            # cat 2.0
+alias k='kubectl'                             # k8s era
 ##
 # spotify control
 #alias spotify-pause='dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause'
@@ -72,4 +78,7 @@ alias tree='tree -F'                          # indicates file type
 ##
 if [ -f ~/.baliases.nodo ]; then
     . ~/.baliases.nodo;
+fi
+if [ -f ~/.baliases.caf ]; then
+    . ~/.baliases.caf;
 fi

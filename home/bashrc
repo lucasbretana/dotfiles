@@ -13,6 +13,14 @@ if [ -f ~/.benv.priv ]; then
     . ~/.benv.priv;
 fi
 
+if [ -f ~/.benv.caf ]; then
+    . ~/.benv.caf;
+fi
+
+if [ -f ~/.bkubectlrc ]; then
+    . ~/.bkubectlrc;
+fi
+
 # added personal bin scripts
 if [ -d ~/.local/bin ]; then
   PATH=$HOME/.local/bin:$PATH;
@@ -119,5 +127,9 @@ set -o vi;
 # who needs a X display manager
 _tty=$(tty);
 if [[ -z "$DISPLAY" ]] && [[ "$_tty" = "/dev/tty1" ]]; then
-  exec startx;
+  if which startx; then
+    exec startx;
+  fi
 fi
+
+function gam() { "/home/lucasbretana/.local/bin/gam/gam" "$@" ; }
